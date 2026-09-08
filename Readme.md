@@ -37,10 +37,10 @@ Game assets are packaged inside CPK archives. To extract them, search GitHub for
 
 |Tool|File|Purpose|
 |-|-|-|
-|Text tool|`text/slz\\\_msgp.py`|Extract, edit, and rebuild message `.bin` files|
+|Text tool|`text/slz_msgp.py`|Extract, edit, and rebuild message `.bin` files|
 |CPK tool|`cpkpatch/cpkpatch.py`|Inspect and replace files inside CPK archives|
-|Font tool|`font/font\\\_xor.py`|Decrypt and encrypt fonts|
-|AIF tool|`aif\\\_viewer.py`|Browse, import, export, and repack AIF textures|
+|Font tool|`font/font_xor.py`|Decrypt and encrypt fonts|
+|AIF tool|`aif_viewer.py`|Browse, import, export, and repack AIF textures|
 
 ## Text Tool
 
@@ -49,7 +49,7 @@ The text tool processes game message `.bin` files. It unwraps the SLZ container 
 ### Extract Messages
 
 ```powershell
-python tools/text/slz\\\_msgp.py extract Your\\\_Message\\\_Files -o Your\\\_Json\\\_Files -t Your\\\_Translation.tsv
+python tools/text/slz_msgp.py extract Your_Message_Files -o Your_Json_Files -t Your_Translation.tsv
 ```
 
 This creates:
@@ -60,34 +60,34 @@ This creates:
 The TSV columns are:
 
 ```text
-file    key    name\\\_key    text
+file    key    name_key    text
 ```
 
-`name\\\_key` is optional. Leave it empty if the original message does not have one.
+`name_key` is optional. Leave it empty if the original message does not have one.
 
 ### Rebuild Messages
 
 After editing the TSV, run:
 
 ```powershell
-python tools/text/slz\\\_msgp.py build Your\\\_Translation.tsv -j Your\\\_Json\\\_Files -o Your\\\_Built\\\_Files
+python tools/text/slz_msgp.py build Your_Translation.tsv -j Your_Json_Files -o Your_Built_Files
 ```
 
-This applies the TSV edits to the JSON files and writes rebuilt `.bin` files to `Your\\\_Built\\\_Files`.
+This applies the TSV edits to the JSON files and writes rebuilt `.bin` files to `Your_Built_Files`.
 
 ### Export Raw MSGP
 
 If you only need the raw FlatBuffers payload, without JSON conversion:
 
 ```powershell
-python tools/text/slz\\\_msgp.py msgp Your\\\_Message\\\_Files -o Your\\\_Msgp\\\_Files
+python tools/text/slz_msgp.py msgp Your_Message_Files -o Your_Msgp_Files
 ```
 
 ### Validation and Self-Test
 
 ```powershell
-python tools/text/slz\\\_msgp.py verify Your\\\_Built\\\_Files
-python tools/text/slz\\\_msgp.py roundtrip Your\\\_Message\\\_Files/Your\\\_Sample.bin
+python tools/text/slz_msgp.py verify Your_Built_Files
+python tools/text/slz_msgp.py roundtrip Your_Message_Files/Your_Sample.bin
 ```
 
 ## CPK Tool
@@ -97,19 +97,19 @@ The CPK tool inspects CRI CPK archives and replaces files without rebuilding the
 ### Inspect a CPK
 
 ```powershell
-python tools/cpkpatch/cpkpatch.py info -p Your\\\_CPK.cpk
+python tools/cpkpatch/cpkpatch.py info -p Your_CPK.cpk
 ```
 
 ### List Files in a CPK
 
 ```powershell
-python tools/cpkpatch/cpkpatch.py list -p Your\\\_CPK.cpk -f Your\\\_Filter
+python tools/cpkpatch/cpkpatch.py list -p Your_CPK.cpk -f Your_Filter
 ```
 
 ### Patch a CPK
 
 ```powershell
-python tools/cpkpatch/cpkpatch.py patch -p Your\\\_CPK.cpk -i Your\\\_Built\\\_Files
+python tools/cpkpatch/cpkpatch.py patch -p Your_CPK.cpk -i Your_Built_Files
 ```
 
 Useful options:
@@ -126,14 +126,14 @@ The font tool handles the game's XOR-encrypted font files.
 ### Decrypt a Font
 
 ```powershell
-python tools/font/font\\\_xor.py decrypt Your\\\_Font.ttf
+python tools/font/font_xor.py decrypt Your_Font.ttf
 ```
 
 Outputs are written next to the script:
 
 ```text
-decrypt/Your\\\_Font.ttf
-decrypt/Your\\\_Font.xor
+decrypt/Your_Font.ttf
+decrypt/Your_Font.xor
 ```
 
 The `.xor` file contains the original 4-byte XOR key.
@@ -141,13 +141,13 @@ The `.xor` file contains the original 4-byte XOR key.
 ### Encrypt a Font
 
 ```powershell
-python tools/font/font\\\_xor.py encrypt decrypt/Your\\\_Font.ttf
+python tools/font/font_xor.py encrypt decrypt/Your_Font.ttf
 ```
 
 The encrypted font is written to:
 
 ```text
-encrypt/Your\\\_Font.ttf
+encrypt/Your_Font.ttf
 ```
 
 ## AIF Viewer and Editor
@@ -157,7 +157,7 @@ The AIF tool browses, previews, imports, exports, and repacks SLZ-wrapped AIF te
 ### Start the GUI
 
 ```powershell
-python tools/aif\\\_viewer.py
+python tools/aif_viewer.py
 ```
 
 Features include:
@@ -186,7 +186,7 @@ For single-file import, the DDS base filename must match the AIF base filename.
 Use Shift or Ctrl in the left file tree to select multiple AIF files:
 
 * **Export…** — batch-export the selected files as DDS files into one folder
-* **Import DDS…** — select multiple DDS files whose filenames match the selected AIF files; output is written as `original\\\_name.patched.aif`
+* **Import DDS…** — select multiple DDS files whose filenames match the selected AIF files; output is written as `original_name.patched.aif`
 
 Batch import automatically:
 
@@ -198,7 +198,7 @@ Batch import automatically:
 ### Non-GUI Validation
 
 ```powershell
-python tools/aif\\\_viewer.py --self-test tools/sprite\\\_ja-jp/asset/sprite
+python tools/aif_viewer.py --self-test tools/sprite_ja-jp/asset/sprite
 ```
 
 ## Recommended Workflow
