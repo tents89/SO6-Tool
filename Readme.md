@@ -33,11 +33,11 @@ python -m pip install tkinterdnd2
 
 ## Quick Start
 
-Game assets are packaged inside CPK archives. To extract them, search GitHub for `esperknight/CriPakTools` or `Youjose/CriCodecs`.
+Game assets are packaged inside CPK archives. To extract them, search GitHub for `esperknight/CriPaks` or `Youjose/CriCodecs`.
 
-|Tool|File|Purpose|
+||File|Purpose|
 |-|-|-|
-|Text tool|`text/slz_msgp.py`|Extract, edit, and rebuild message `.bin` files|
+|Text |`text/slz_msgp.py`|Extract, edit, and rebuild message `.bin` files|
 |CPK tool|`cpkpatch/cpkpatch.py`|Inspect and replace files inside CPK archives|
 |Font tool|`font/font_xor.py`|Decrypt and encrypt fonts|
 |AIF tool|`aif_viewer.py`|Browse, import, export, and repack AIF textures|
@@ -49,7 +49,7 @@ The text tool processes game message `.bin` files. It unwraps the SLZ container 
 ### Extract Messages
 
 ```powershell
-python tools/text/slz_msgp.py extract Your_Message_Files -o Your_Json_Files -t Your_Translation.tsv
+python text/slz_msgp.py extract Your_Message_Files -o Your_Json_Files -t Your_Translation.tsv
 ```
 
 This creates:
@@ -70,7 +70,7 @@ file    key    name_key    text
 After editing the TSV, run:
 
 ```powershell
-python tools/text/slz_msgp.py build Your_Translation.tsv -j Your_Json_Files -o Your_Built_Files
+python text/slz_msgp.py build Your_Translation.tsv -j Your_Json_Files -o Your_Built_Files
 ```
 
 This applies the TSV edits to the JSON files and writes rebuilt `.bin` files to `Your_Built_Files`.
@@ -80,14 +80,14 @@ This applies the TSV edits to the JSON files and writes rebuilt `.bin` files to 
 If you only need the raw FlatBuffers payload, without JSON conversion:
 
 ```powershell
-python tools/text/slz_msgp.py msgp Your_Message_Files -o Your_Msgp_Files
+python text/slz_msgp.py msgp Your_Message_Files -o Your_Msgp_Files
 ```
 
 ### Validation and Self-Test
 
 ```powershell
-python tools/text/slz_msgp.py verify Your_Built_Files
-python tools/text/slz_msgp.py roundtrip Your_Message_Files/Your_Sample.bin
+python text/slz_msgp.py verify Your_Built_Files
+python text/slz_msgp.py roundtrip Your_Message_Files/Your_Sample.bin
 ```
 
 ## CPK Tool
@@ -97,19 +97,19 @@ The CPK tool inspects CRI CPK archives and replaces files without rebuilding the
 ### Inspect a CPK
 
 ```powershell
-python tools/cpkpatch/cpkpatch.py info -p Your_CPK.cpk
+python cpkpatch/cpkpatch.py info -p Your_CPK.cpk
 ```
 
 ### List Files in a CPK
 
 ```powershell
-python tools/cpkpatch/cpkpatch.py list -p Your_CPK.cpk -f Your_Filter
+python cpkpatch/cpkpatch.py list -p Your_CPK.cpk -f Your_Filter
 ```
 
 ### Patch a CPK
 
 ```powershell
-python tools/cpkpatch/cpkpatch.py patch -p Your_CPK.cpk -i Your_Built_Files
+python cpkpatch/cpkpatch.py patch -p Your_CPK.cpk -i Your_Built_Files
 ```
 
 Useful options:
@@ -126,7 +126,7 @@ The font tool handles the game's XOR-encrypted font files.
 ### Decrypt a Font
 
 ```powershell
-python tools/font/font_xor.py decrypt Your_Font.ttf
+python font/font_xor.py decrypt Your_Font.ttf
 ```
 
 Outputs are written next to the script:
@@ -141,7 +141,7 @@ The `.xor` file contains the original 4-byte XOR key.
 ### Encrypt a Font
 
 ```powershell
-python tools/font/font_xor.py encrypt decrypt/Your_Font.ttf
+python font/font_xor.py encrypt decrypt/Your_Font.ttf
 ```
 
 The encrypted font is written to:
@@ -157,7 +157,7 @@ The AIF tool browses, previews, imports, exports, and repacks SLZ-wrapped AIF te
 ### Start the GUI
 
 ```powershell
-python tools/aif_viewer.py
+python aif_viewer.py
 ```
 
 Features include:
@@ -198,7 +198,7 @@ Batch import automatically:
 ### Non-GUI Validation
 
 ```powershell
-python tools/aif_viewer.py --self-test tools/sprite_ja-jp/asset/sprite
+python aif_viewer.py --self-test sprite_ja-jp/asset/sprite
 ```
 
 ## Recommended Workflow
